@@ -8,6 +8,7 @@ function App(){
    const [editMode, setModeEdit] = useState(false);
    const data = useSelector(state => state.todo.data);
    const selectedTodoId = useSelector(state => state.select);
+   const counter = useSelector(state => state.counterApp);
    const selectedTodo = (selectedTodoId && data.find(todo => todo.id === selectedTodoId)) || null;
    const dispatch = useDispatch();
    
@@ -43,10 +44,10 @@ function App(){
    const handleDelete = () => {
       dispatch(DeleteTodoActionCreateor(selectedTodo.description));
    }
-   
+
    return(
    <div className="App">
-      <div className="App__counter">Todos Updated Count: 0</div>
+      <div className="App__counter">Todos Updated Count: {counter}</div>
          <div className="App__header">
             <h1>Todo: Redux vs RTK Edition</h1>
             <form onSubmit={AddTodoHandle}>
@@ -72,15 +73,15 @@ function App(){
                <h2>Selected Todo:</h2>
                   {selectedTodo === null ? <p>No selected item</p> :
                      editMode ? (
-                        <form onSubmit={handleUpdate}>
+                        <form onSubmit={(e) => e.preventDefault()}>
                            <label htmlFor="edit-todo">Edit:</label>
                            <input 
                               type='text' 
                               value={desc} 
                               onChange={(e) => setDesc(e.target.value)}
                            />
-                           <button type="submit">Update</button>
-                           <button>Cancel</button>
+                           <button type="submit" onClick={handleUpdate}>Update</button>
+                           <button onClick={() => setModeEdit(false)}>Cancel</button>
                         </form>
                      ) : (
                         <>

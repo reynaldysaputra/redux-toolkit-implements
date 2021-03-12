@@ -44,6 +44,18 @@ export const SelectedTodoSlice = createSlice({
    }
 });
 
+export const CounterUpdateApp = createSlice({
+   name : 'counterUpdate',
+   initialState : 0,
+   reducers : {},
+   extraReducers : {
+      [TodosReducer.actions.addTodo] : state => state + 1,
+      [TodosReducer.actions.toggleTodo] : state => state + 1,
+      [TodosReducer.actions.editTodo] : state => state + 1,
+      [TodosReducer.actions.deleteTodo] : state => state + 1,
+   }
+})
+
 export const {
    addTodo : createTodoActionCreator, 
    toggleTodo : ToggleTodoActionCreator,

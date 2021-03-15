@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createTodoActionCreator, EditTodoActionCreator, SelectedTodoActionCreator, ToggleTodoActionCreator, DeleteTodoActionCreateor } from './reducer';
 import './app.css';
+import PostApp from './Post';
 
 function App(){
    const [desc, setDesc] = useState('');
@@ -101,6 +102,8 @@ function App(){
                   }
             </div>
          </div>
+
+         <PostApp/>         
       </div>
    )
 }

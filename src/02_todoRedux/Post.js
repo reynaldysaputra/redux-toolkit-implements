@@ -1,14 +1,22 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPost } from './reducerApi';
-
+import { unwrapResult } from '@reduxjs/toolkit';
+ 
 function PostApp(){
    const dispatch = useDispatch();
    const {data, status} = useSelector(state => state.post);
 
+   const handleClick = () => {
+      dispatch(getPost())
+         .then(unwrapResult) // fungsi unwrapResult menjadi fungsi tambahan, kita bisa membuat logika tambahan di komponen ini
+         .then(res => console.log(res))
+         .catch(err => alert('ERROR'))      
+   }  
+
    return(
       <>
-         <button onClick={() => dispatch(getPost())}>Get Data</button>
+         <button onClick={handleClick} disabled={status && true}>Get Data</button>
          {
             status == 'loading' ? <h1>Loading..</h1> : 
             <>

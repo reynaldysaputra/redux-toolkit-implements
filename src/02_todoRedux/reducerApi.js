@@ -3,9 +3,19 @@ import axios from 'axios';
 
 export const getPost = createAsyncThunk(
    'postData/getPost',
-   async (parameter, {dispatch, getState}) => {
-      return axios.get('https://jonplaceholder.typicode.com/posts')
+   async (args, {dispatch, getState}) => {
+      return axios.get('https://jsonplaceholder.typicode.com/posts')
          .then(res => res.data);
+   },
+   {
+      condition : (obj, {getState}) => {
+         const { post } = getState();
+         const fetchStatus = post.status;
+
+         if(fetchStatus === 'succses') {
+            return false;
+         }
+      }
    }
 )
 
@@ -22,7 +32,6 @@ export const postReducer = createSlice({
       [getPost.fulfilled] : (state, action) => {
          state.data = action.payload;
          state.status = 'succses';
-         console.log(action);
       },
       [getPost.rejected] : (state) => {
          state.status = 'failed';

@@ -11,12 +11,12 @@ function PostApp(){
       dispatch(getPost())
          .then(unwrapResult) // fungsi unwrapResult menjadi fungsi tambahan, kita bisa membuat logika tambahan di komponen ini
          .then(res => console.log(res))
-         .catch(err => alert('ERROR'))      
+         .catch(err => console.log(err))     
    }  
 
    return(
       <>
-         <button onClick={handleClick} disabled={status && true}>Get Data</button>
+         <button onClick={handleClick}>Get Data</button>
          {
             status == 'loading' ? <h1>Loading..</h1> : 
             <>

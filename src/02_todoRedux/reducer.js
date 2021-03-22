@@ -1,4 +1,4 @@
-import {createSlice} from '@reduxjs/toolkit';
+import {createSlice, current} from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
 
 export const TodosReducer = createSlice({
@@ -10,6 +10,7 @@ export const TodosReducer = createSlice({
    reducers : {
       addTodo : {
          reducer : (state, action) => {
+            console.log(current(state));
             state.data.push(action.payload);
          },
          prepare: (data) => ({

@@ -3,7 +3,8 @@ import axios from 'axios';
 
 export const getPost = createAsyncThunk(
    'postData/getPost',
-   async (args, {dispatch, getState}) => {
+   async (args, {dispatch, getState, signal}) => {
+      new axios.CancelToken(e => console.log(e))
       return axios.get('https://jsonplaceholder.typicode.com/posts')
          .then(res => res.data);
    },

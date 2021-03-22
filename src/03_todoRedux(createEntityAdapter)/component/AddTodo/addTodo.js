@@ -16,14 +16,14 @@ function AddTodo(){
          dispatch(addTodoSIngle({
             id : nanoid(),
             text : text,
-            message : false
+            complete : false
          }))
       }else if(event.key === 'Enter' && items.length >= 0) {
          dispatch(addTodoMany(
             items.map(data => ({
                id : nanoid(),
                text : data,
-               message : false
+               complete : false
             }))
          ))
       }

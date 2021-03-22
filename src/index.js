@@ -8,9 +8,10 @@ import App from './02_todoRedux/App';
 import {BrowserRouter, Switch, Route, NavLink} from 'react-router-dom';
 import App2 from './02_todoRedux/App2';
 import App_Todo from './03_todoRedux(createEntityAdapter)/app';
+import { storeTodoAdapter } from './03_todoRedux(createEntityAdapter)/store/store';
 
 ReactDOM.render(
-  <Provider store={storeTodo}>
+  <Provider store={storeTodoAdapter}>
     <BrowserRouter>
       <NavLink to='/' exact>Home</NavLink>
       <NavLink to='/about'>About Us</NavLink>

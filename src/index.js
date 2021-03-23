@@ -2,16 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
 import Counter from './01_basicCounter/counter';
-import store from './01_basicCounter/store';
-import {store as storeTodo} from './02_todoRedux/store';
 import App from './02_todoRedux/App';
 import {BrowserRouter, Switch, Route, NavLink} from 'react-router-dom';
 import App2 from './02_todoRedux/App2';
 import App_Todo from './03_todoRedux(createEntityAdapter)/app';
-import { storeTodoAdapter } from './03_todoRedux(createEntityAdapter)/store/store';
+import { store } from './store';
 
 ReactDOM.render(
-  <Provider store={storeTodoAdapter}>
+  <Provider store={store}>
     <BrowserRouter>
       <NavLink to='/' exact>Home</NavLink>
       <NavLink to='/about'>About Us</NavLink>

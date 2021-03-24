@@ -4,7 +4,7 @@ import { CounterUpdateApp, SelectedTodoSlice, TodosReducer } from './02_todoRedu
 import postReducer from './02_todoRedux/reducerApi';
 import { TodoReducer2 } from './03_todoRedux(createEntityAdapter)/store/todoSlice';
 import { userReducer } from './04_normalisasiRedux/userSlice';
-import { commentReducer } from './05_deepIntoCreateEntityAdapter/comments/commentsSlice';
+import { commentReducer } from './05_deepIntoCreateEntityAdapter/commentsSlice';
 
 export const store = configureStore({
    reducer : {

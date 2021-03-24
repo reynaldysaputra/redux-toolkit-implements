@@ -8,7 +8,7 @@ import App2 from './02_todoRedux/App2';
 import App_Todo from './03_todoRedux(createEntityAdapter)/app';
 import { store } from './store';
 import User from './04_normalisasiRedux/user';
-import Comments from './05_deepIntoCreateEntityAdapter/comments/comments';
+import Blog from './05_deepIntoCreateEntityAdapter/pages/blog';
 
 ReactDOM.render(
   <Provider store={store}>
@@ -22,7 +22,7 @@ ReactDOM.render(
         <Route path='/' exact component={App} />
         <Route path='/apptodo' component={App_Todo} />
         <Route path='/normalisasiapp' component={User} />
-        <Route path='/deepcreateEntityAdapter' component={Comments} />
+        <Route path='/deepcreateEntityAdapter' component={Blog} />
       </Switch>
     </BrowserRouter>
   </Provider>,

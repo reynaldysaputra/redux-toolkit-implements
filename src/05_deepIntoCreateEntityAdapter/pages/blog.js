@@ -16,7 +16,6 @@ function Blog(){
    return(
       <>
          {console.log('render parent')}
-         {console.log(allComments)}
          {allComments.map(item => 
             <Comments 
                key={item.id} 

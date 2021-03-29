@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, createEntityAdapter } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, createEntityAdapter, current } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 export const fetchDataComments = createAsyncThunk(
@@ -9,14 +9,23 @@ export const fetchDataComments = createAsyncThunk(
          .catch(err => err)
 
       // Menormalisasikan data 
-      const like = data.reduce((prev, curr) => [...prev, curr.like], []).flat();
-      const tags = data.reduce((prev, curr) => [...prev, curr.tags], []).flat();
+      const mappedData = data.map((comment) => ({
+         ...comment,
+         tags: comment.tags.map((tag) => ({ ...tag, commentId: comment.id })),
+         like: comment.like.map((like) => ({ ...like, commentId: comment.id })),
+      }))
+
+      const like = mappedData.reduce((prev, curr) => [...prev, curr.like], []).flat();
+      const tags = mappedData.reduce((prev, curr) => [...prev, curr.tags], []).flat();
+
+      const comments = mappedData.map(({ id, body, like, tags }) => ({
+         id,
+         body,
+         likeIds: like.map((like) => like.id),
+         tagsIds: tags.map((tag) => tag.id),
+      }))
       
-      return {
-         data : data.map(({id, body}) => ({id, body})),
-         like,
-         tags
-      };
+      return { comments, like, tags }
    }
 )
 
@@ -51,9 +60,34 @@ export const commentReducer = createSlice({
       loading : false,
       error : false,
       tags : tagsAdapter.getInitialState(),
-      likes : likeAdapter.getInitialState()
+      like : likeAdapter.getInitialState()
    }),
-   reducers : {},
+   reducers : {
+      removeTagOne : (state, {payload : tagID}) => {
+         // Cari commentId di tagsAdapter lewat tagID
+         console.log(tagID);
+         const { commentId } = tagsAdapter
+            .getSelectors()
+            .selectById(state.tags, tagID)
+
+         // Cari data comment di adapter comment dengan mengambil commentId dan mencocokan di comment adapter
+         const comment = commentAdapter
+            .getSelectors()
+            .selectById(state, commentId);
+         
+         // Update dan hapus id tags di commentAdapter
+         commentAdapter.updateOne(state, {
+            id: comment.id,
+            changes: {
+               ...comment,
+               tagsIds: comment.tagsIds.filter((id) => id !== tagID),
+            },
+         })
+         
+         // Hapus data tag di tagsAdapter melalui id yang dikirim di tagID
+         tagsAdapter.removeOne(state.tags, tagID);         
+      }
+   },
    extraReducers : {
       [fetchDataComments.pending] : (state) => {
          state.loading = true;
@@ -61,19 +95,22 @@ export const commentReducer = createSlice({
       [fetchDataComments.fulfilled] : (state, {payload}) => {
          state.loading = false;
 
-         commentAdapter.setAll(state, payload.data);
-         commentAdapter.setAll(state.likes, payload.like);
+         console.log(payload);
+         
+         commentAdapter.setAll(state, payload.comments);
+         commentAdapter.setAll(state.like, payload.like);
          commentAdapter.setAll(state.tags, payload.tags);
       },
       [fetchDataComments.rejected] : (state, action) => {
          state.loading = false;
          state.error = action;
+         console.log(action);
       },
       [deleteDataComments.fulfilled] : (state, {payload : id}) => {
          commentAdapter.removeOne(state, id);
       },
       [deleteDataComments.rejected] : (state, action) => {
-         console.log(action);
+         console.log(current(state));
       },
       [patchDataComments.pending] : (state) => {
          state.loading = true;
@@ -89,5 +126,7 @@ export const commentReducer = createSlice({
       }
    }
 })
+
+export const {removeTagOne} = commentReducer.actions;
 
 export const commentSelector = commentAdapter.getSelectors(state => state.comments);

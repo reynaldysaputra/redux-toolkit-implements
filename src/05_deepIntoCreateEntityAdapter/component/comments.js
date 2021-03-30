@@ -10,6 +10,7 @@ function Comments({data, deleteComment, patchComment}){
       >  
          <h3>{data.id}</h3>
          <p>{data.body}</p>
+         <h2>Like : {data.tagsIds.length}</h2>
          <button style={{color : 'red'}} onClick={() => deleteComment(data.id)}>Delete</button>
          <button style={{color : 'blue'}} onClick={() => patchComment(data.id, {body : 'NEW DATA'})}>Patch</button>
          {console.log('render children')}

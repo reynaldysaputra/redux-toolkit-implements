@@ -1,6 +1,8 @@
-import { createEntityAdapter, createSlice } from '@reduxjs/toolkit';
+import { createEntityAdapter, createSlice, current } from '@reduxjs/toolkit';
 
-const formAdapter = createEntityAdapter();
+const formAdapter = createEntityAdapter({
+   selectId : ({id}) => id
+});
 
 const myDynamicFormSlice = createSlice({
    name : 'myDynamicForm',
@@ -12,9 +14,13 @@ const myDynamicFormSlice = createSlice({
             error : false
          })
       },
+      setDataForm : (state, {payload}) => {
+         payload.forEach(item => {
+            formAdapter.addOne(state[item.id], item);
+         });
+      }
    }
 })
 
-export const { createForm } = myDynamicFormSlice.actions;
-
+export const { createForm, setDataForm } = myDynamicFormSlice.actions;
 export default myDynamicFormSlice;

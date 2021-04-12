@@ -10,15 +10,17 @@ import { store } from './store';
 import User from './04_normalisasiRedux/user';
 import Blog from './05_deepIntoCreateEntityAdapter/pages/blog';
 import MyDynamicForm from './06_dynamicForm/form';
+import Ecommerce1 from './TRAINING/01_ecommerce1/app';
 
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
-      <NavLink to='/' exact>Home</NavLink>
-      <NavLink to='/apptodo'>App Todo CreatEntityAdapter</NavLink>
-      <NavLink to='/normalisasiapp'>Normalisasi App</NavLink>
-      <NavLink to='/deepcreateEntityAdapter'>deep createEntityAdapter</NavLink>
-      <NavLink to='/dynamicform'>Dynamic Form</NavLink>
+      <NavLink to='/' exact>Home</NavLink><br/>
+      <NavLink to='/apptodo'>App Todo CreatEntityAdapter</NavLink><br/>
+      <NavLink to='/normalisasiapp'>Normalisasi App</NavLink><br/>
+      <NavLink to='/deepcreateEntityAdapter'>deep createEntityAdapter</NavLink><br/>
+      <NavLink to='/dynamicform'>Dynamic Form</NavLink><br/>
+      <NavLink to='/ecommerce1'>Ecommerce 1</NavLink><br/>
 
       <Switch>
         <Route path='/' exact component={App} />
@@ -26,6 +28,7 @@ ReactDOM.render(
         <Route path='/normalisasiapp' component={User} />
         <Route path='/deepcreateEntityAdapter' component={Blog} />
         <Route path='/dynamicform' component={MyDynamicForm} />
+        <Route path='/ecommerce1' component={Ecommerce1} />
       </Switch>
     </BrowserRouter>
   </Provider>,

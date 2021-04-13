@@ -16,7 +16,7 @@ function Products(props) {
                   <b>{product.price}</b>
                   <button
                      className="btn btn-primary"
-                     // onClick={(e) => this.props.handleAddToCart(e, product)}
+                     onClick={(e) => props.handleAddToCart(product)}
                   >
                      Add to cart
                   </button>

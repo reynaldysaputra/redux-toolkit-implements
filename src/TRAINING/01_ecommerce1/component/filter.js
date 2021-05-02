@@ -3,14 +3,15 @@ import React from 'react';
 function Filter(props) {
    return(
       <div className="row">
-         <div className="col-md-4"> products found.</div>
+         <div className="col-md-4">{props.filterName.filterProducts.length} products found.</div>         
          <div className="col-md-4">
             <label>
                Order by
+               {console.log(props)}
                <select
                   className="form-control"
-                  value={props.filterName.sort}
-                  onChange={props.handleChangeSort}
+                  defaultValue={props.filterName.sort}
+                  onChange={(e) => props.handleChangeSort(e.target.value)}
                >
                <option value="">Select</option>
                <option value="lowestprice">Lowest to highest</option>
@@ -24,8 +25,8 @@ function Filter(props) {
                Filter Size
                <select
                   className="form-control"
-                  value={props.filterName.size}
-                  onChange={props.handleChangeSize}
+                  defaultValue={props.filterName.size}
+                  onChange={(e) => props.handleChangeSize(e.target.value)}
                >
                <option value="">ALL</option>
                <option value="xs">XS</option>

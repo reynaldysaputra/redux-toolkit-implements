@@ -1,6 +1,10 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { deleteProductEcommerce } from '../reducer/cartReducer';
 
 function Basket(props) {
+   const dispatch = useDispatch();
+
    return(
       <div className="alert alert-info">
          {props.cartItems.length >= 1 ? 
@@ -10,7 +14,11 @@ function Basket(props) {
                {props.cartItems.map(item => (
                   <li key={item.id}>
                      <b>{item.title} - {item.count} ${item.price * item.count}</b>
-                     <button style={{ float: 'right' }} className="btn btn-danger btn-xs" onClick={() => props.handleRemoveFromCart(item)}>X</button>
+                     <button 
+                        style={{ float: 'right' }} 
+                        className="btn btn-danger btn-xs" 
+                        onClick={() => dispatch(deleteProductEcommerce(item))}
+                     >X</button>
                      <br/>
                   </li>
                ))}

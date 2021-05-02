@@ -1,6 +1,10 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { createProductEcommerce } from '../reducer/cartReducer';
 
 function Products(props) {
+   const dispatch = useDispatch();
+
    return(
       <div className="row">
          {props.products.map(product => (
@@ -8,7 +12,6 @@ function Products(props) {
                <div className="thumbnail text-center">
                   <a
                      href={`#${product.id}`}
-                     // onClick={(e) => this.props.addToCart(this.props.cartItems, product)}
                   >
                      <img src={`resource-training/01_ecommerceBasic1/products-img/${product.sku}_2.jpg`} alt={product.title} />
                      <p>{product.title}</p>
@@ -16,7 +19,7 @@ function Products(props) {
                   <b>{product.price}</b>
                   <button
                      className="btn btn-primary"
-                     onClick={(e) => props.handleAddToCart(product)}
+                     onClick={(e) => dispatch(createProductEcommerce(product))}
                   >
                      Add to cart
                   </button>

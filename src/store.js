@@ -6,6 +6,8 @@ import { TodoReducer2 } from './03_todoRedux(createEntityAdapter)/store/todoSlic
 import { userReducer } from './04_normalisasiRedux/userSlice';
 import { commentReducer } from './05_deepIntoCreateEntityAdapter/commentsSlice';
 import myDynamicFormSlice from './06_dynamicForm/formSlice';
+import { cartReducer1 } from './TRAINING/01_ecommerce1/reducer/cartReducer';
+import { productReducer1 } from './TRAINING/01_ecommerce1/reducer/productReducer';
 
 export const store = configureStore({
    reducer : {
@@ -17,6 +19,8 @@ export const store = configureStore({
       todoReducerAdaptor : TodoReducer2.reducer,
       user : userReducer.reducer,
       comments : commentReducer.reducer,
-      dynamicForm : myDynamicFormSlice.reducer
+      dynamicForm : myDynamicFormSlice.reducer,
+      product1 : productReducer1.reducer,
+      cart1 : cartReducer1.reducer
    }
 })
